@@ -1,0 +1,7 @@
+{
+  "name": "Tryify - AI Outfit Visualizer",
+  "description": "An AI-powered tool to realistically apply new outfits to a person in an image. Upload a photo, describe an outfit or provide a reference image, and see a virtual try-on while preserving the subject's face, hair, and body shape.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
