@@ -16,7 +16,7 @@ const navItems = [
 
 export const BottomNavBar: React.FC<BottomNavBarProps> = ({ activeView, setActiveView }) => {
   return (
-    <footer className="fixed bottom-0 left-0 right-0 bg-white/80 backdrop-blur-sm border-t border-gray-200 z-20">
+    <footer className="fixed bottom-0 left-0 right-0 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border-t border-gray-200 dark:border-gray-700 z-20">
       <div className="container mx-auto px-4 grid grid-cols-4">
         {navItems.map((item) => (
           <button
@@ -24,8 +24,8 @@ export const BottomNavBar: React.FC<BottomNavBarProps> = ({ activeView, setActiv
             onClick={() => setActiveView(item.view as View)}
             className={`flex flex-col items-center justify-center py-2 transition-colors ${
               activeView === item.view
-                ? 'text-indigo-600'
-                : 'text-gray-500 hover:bg-gray-100'
+                ? 'text-indigo-600 dark:text-indigo-400'
+                : 'text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700'
             }`}
           >
             {item.icon}

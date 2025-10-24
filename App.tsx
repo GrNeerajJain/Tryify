@@ -142,6 +142,20 @@ const App: React.FC = () => {
     loadPresets();
   }, [isLoggedIn, loadCreations, loadPresets]);
 
+  const validateFile = (file: File | null): string | null => {
+      if (!file) return null;
+      const MAX_SIZE_MB = 5;
+      const ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/webp'];
+
+      if (file.size > MAX_SIZE_MB * 1024 * 1024) {
+          return `Image is too large. Please upload a file smaller than ${MAX_SIZE_MB}MB.`;
+      }
+      if (!ALLOWED_TYPES.includes(file.type)) {
+          return 'Invalid file type. Please upload a JPG, PNG, or WEBP image.';
+      }
+      return null;
+  };
+
   const handleGenerate = async () => {
     setIsLoading(true);
     setError(null);
@@ -153,11 +167,27 @@ const App: React.FC = () => {
       setIsLoading(false);
       return;
     }
+     const userImageError = validateFile(userImage);
+    if (userImageError) {
+        setError(userImageError);
+        setIsLoading(false);
+        return;
+    }
+
     if (!outfitImage && !outfitDescription) {
       setError('Please provide an outfit image or a description.');
       setIsLoading(false);
       return;
     }
+     if (outfitImage) {
+        const outfitImageError = validateFile(outfitImage);
+        if (outfitImageError) {
+            setError(outfitImageError);
+            setIsLoading(false);
+            return;
+        }
+    }
+
 
     const reader = new FileReader();
     reader.readAsDataURL(userImage);
@@ -178,7 +208,7 @@ const App: React.FC = () => {
             saveCreations([newCreation, ...creations]);
         } catch (err: any) {
             console.error(err);
-            setError(`An error occurred: ${err.message || 'Please try again.'}`);
+            setError(err.message || 'An unexpected error occurred. Please try again.');
         } finally {
             setIsLoading(false);
         }
@@ -408,7 +438,7 @@ const App: React.FC = () => {
       case 'creations':
         return <CreationsView creations={creations} onShare={handleShare} onClearAll={handleClearAllCreations} isLoggedIn={isLoggedIn} isLoading={isLoadingCreations} />;
       case 'profile':
-        return <ProfileView userInfo={userInfo} onLogin={handleLogin} onLogout={handleLogout} onUpdateProfile={handleUpdateProfile} />;
+        return <ProfileView userInfo={userInfo} onLogin={handleLogin} onLogout={handleLogout} onUpdateProfile={handleUpdateProfile} theme={theme} setTheme={setTheme} />;
       case 'help':
         return <HelpView />;
       case 'home':

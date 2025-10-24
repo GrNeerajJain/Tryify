@@ -72,24 +72,43 @@ export const generateOutfit = async (
   
   parts.push({ text: prompt });
 
-  // Fix: Per coding guidelines, call generateContent on ai.models directly with model name
-  const result: GenerateContentResponse = await ai.models.generateContent({
-    model: 'gemini-2.5-flash-image',
-    contents: { parts: parts },
-    config: {
-        responseModalities: [Modality.IMAGE],
-    },
-  });
+  try {
+    const result: GenerateContentResponse = await ai.models.generateContent({
+      model: 'gemini-2.5-flash-image',
+      contents: { parts: parts },
+      config: {
+          responseModalities: [Modality.IMAGE],
+      },
+    });
 
-  const generatedPart = result.candidates?.[0]?.content?.parts?.[0];
+    const generatedPart = result.candidates?.[0]?.content?.parts?.[0];
 
-  if (generatedPart && generatedPart.inlineData) {
-    const base64ImageBytes: string = generatedPart.inlineData.data;
-    const mimeType = generatedPart.inlineData.mimeType;
-    return `data:${mimeType};base64,${base64ImageBytes}`;
+    if (generatedPart && generatedPart.inlineData) {
+      const base64ImageBytes: string = generatedPart.inlineData.data;
+      const mimeType = generatedPart.inlineData.mimeType;
+      return `data:${mimeType};base64,${base64ImageBytes}`;
+    }
+    
+    // Handle cases where the API returns a response but no image data.
+    const finishReason = result.candidates?.[0]?.finishReason;
+    if (finishReason === 'SAFETY' || finishReason === 'RECITATION') {
+        throw new Error('Generation failed due to safety or policy reasons. Please try a different outfit or description.');
+    }
+
+    throw new Error("Generation failed. The model did not return an image. Please try again with a different outfit or description.");
+  } catch (error: any) {
+    console.error("Gemini API Error:", error);
+    // Check for network-like errors
+    if (error.message.includes('fetch')) {
+        throw new Error('A network error occurred. Please check your connection and try again.');
+    }
+    // Re-throw our specific, user-friendly errors
+    if (error.message.startsWith('Generation failed') || error.message.startsWith('A network error')) {
+        throw error;
+    }
+    // Generic fallback for other API errors
+    throw new Error('The generation failed. The AI model may be overloaded or the request was invalid. Please try again later.');
   }
-
-  throw new Error("Failed to generate image. The model did not return image data.");
 };
 
 export const startChatSession = (): Chat => {

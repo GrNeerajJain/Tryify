@@ -1,15 +1,16 @@
-
-
 import React, { useState, useEffect } from 'react';
-import { UserInfo } from '../types';
+import { UserInfo, Theme } from '../types';
 import { GoogleIcon, InfoIcon, EditIcon, AvatarIcon1, AvatarIcon2, AvatarIcon3, AvatarIcon4, CloudIcon, CheckCircleIcon } from './icons';
 import { Spinner } from './Spinner';
+import { ThemeSwitcher } from './ThemeSwitcher';
 
 interface ProfileViewProps {
   userInfo: UserInfo | null;
   onLogin: () => Promise<void>;
   onLogout: () => void;
   onUpdateProfile: (updatedInfo: { name?: string, picture?: string }) => void;
+  theme: Theme;
+  setTheme: (theme: Theme) => void;
 }
 
 const MenuItem: React.FC<{ children: React.ReactNode; isDestructive?: boolean; onClick?: () => void }> = ({ children, isDestructive = false, onClick }) => (
@@ -34,7 +35,7 @@ const UserAvatar: React.FC<{ picture: string; className?: string }> = ({ picture
 };
 
 
-export const ProfileView: React.FC<ProfileViewProps> = ({ userInfo, onLogin, onLogout, onUpdateProfile }) => {
+export const ProfileView: React.FC<ProfileViewProps> = ({ userInfo, onLogin, onLogout, onUpdateProfile, theme, setTheme }) => {
   const [isLoggingIn, setIsLoggingIn] = useState(false);
   const [actionToConfirm, setActionToConfirm] = useState<'Delete account' | 'Log out' | null>(null);
   const [deleteConfirmationText, setDeleteConfirmationText] = useState('');
@@ -307,6 +308,15 @@ export const ProfileView: React.FC<ProfileViewProps> = ({ userInfo, onLogin, onL
   return (
     <div className="max-w-md mx-auto">
       {userInfo ? <LoggedInView /> : <LoggedOutView />}
+
+      <div className="mt-8">
+        <h2 className="text-sm font-semibold text-gray-500 dark:text-gray-400 px-1 mb-2">Appearance</h2>
+        <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4 flex justify-between items-center shadow-sm">
+          <span className="font-semibold text-gray-700 dark:text-gray-300">Theme</span>
+          <ThemeSwitcher theme={theme} setTheme={setTheme} />
+        </div>
+      </div>
+
       {renderConfirmationDialog()}
       {renderEditProfileModal()}
     </div>

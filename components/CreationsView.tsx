@@ -41,7 +41,7 @@ export const CreationsView: React.FC<CreationsViewProps> = ({ creations, onShare
   const renderContent = () => {
     if (isLoading) {
         return (
-            <div className="flex flex-col items-center justify-center py-20 text-gray-500">
+            <div className="flex flex-col items-center justify-center py-20 text-gray-500 dark:text-gray-400">
                 <Spinner />
                 <p className="mt-4">Loading your creations...</p>
             </div>
@@ -51,8 +51,8 @@ export const CreationsView: React.FC<CreationsViewProps> = ({ creations, onShare
     if (creations.length === 0) {
         return (
             <div className="text-center py-20">
-                <p className="text-gray-500 mt-4">You haven't generated any images yet.</p>
-                <p className="text-gray-500">Go to the 'Home' tab to start creating!</p>
+                <p className="text-gray-500 dark:text-gray-400 mt-4">You haven't generated any images yet.</p>
+                <p className="text-gray-500 dark:text-gray-400">Go to the 'Home' tab to start creating!</p>
             </div>
         );
     }
@@ -60,13 +60,13 @@ export const CreationsView: React.FC<CreationsViewProps> = ({ creations, onShare
     return (
         <>
          {!isLoggedIn && creations.length > 0 && (
-            <div className="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-800 p-4 mb-6 rounded-md shadow" role="alert">
+            <div className="bg-yellow-100 dark:bg-yellow-900/20 border-l-4 border-yellow-500 dark:border-yellow-600 text-yellow-800 dark:text-yellow-200 p-4 mb-6 rounded-md shadow" role="alert">
                 <p className="font-bold">Your creations are saved locally on this device.</p>
                 <p>Go to the 'Profile' tab and sign in to sync your creations to your Google Drive.</p>
             </div>
         )}
         {isLoggedIn && creations.length > 0 && (
-             <div className="bg-green-100 border-l-4 border-green-500 text-green-800 p-4 mb-6 rounded-md shadow" role="alert">
+             <div className="bg-green-100 dark:bg-green-900/20 border-l-4 border-green-500 dark:border-green-600 text-green-800 dark:text-green-200 p-4 mb-6 rounded-md shadow" role="alert">
                 <p className="font-bold">Your creations are safely stored in your Google Drive.</p>
                 <p>They are accessible from any device where you are logged in.</p>
             </div>
@@ -76,7 +76,7 @@ export const CreationsView: React.FC<CreationsViewProps> = ({ creations, onShare
             {creations.map((creation) => (
             <div 
                 key={creation.id} 
-                className="group relative rounded-lg overflow-hidden shadow-lg border border-gray-200 cursor-zoom-in"
+                className="group relative rounded-lg overflow-hidden shadow-lg border border-gray-200 dark:border-gray-700 cursor-zoom-in"
                 onClick={() => setZoomedImage(creation.generatedImage)}
             >
                 <img 
@@ -115,11 +115,11 @@ export const CreationsView: React.FC<CreationsViewProps> = ({ creations, onShare
   return (
     <div>
         <div className="flex justify-between items-center mb-6">
-            <h1 className="text-3xl font-bold text-gray-800">My Creations</h1>
+            <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-100">My Creations</h1>
             {creations.length > 0 && !isLoading && (
                  <button 
                     onClick={() => setIsConfirmingClear(true)}
-                    className="flex items-center gap-2 text-sm font-semibold text-red-600 bg-red-100 hover:bg-red-200 px-3 py-1.5 rounded-full transition-colors"
+                    className="flex items-center gap-2 text-sm font-semibold text-red-600 dark:text-red-400 bg-red-100 dark:bg-red-900/30 hover:bg-red-200 dark:hover:bg-red-900/40 px-3 py-1.5 rounded-full transition-colors"
                 >
                     <TrashIcon className="h-4 w-4" />
                     <span>Clear All</span>
@@ -165,16 +165,16 @@ export const CreationsView: React.FC<CreationsViewProps> = ({ creations, onShare
           onClick={() => setCreationToDownload(null)}
         >
           <div 
-            className="bg-white rounded-lg shadow-xl p-6 w-full max-w-sm m-4 text-left transform animate-scale-in"
+            className="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6 w-full max-w-sm m-4 text-left transform animate-scale-in"
             onClick={(e) => e.stopPropagation()}
           >
-            <h2 className="text-xl font-bold text-gray-900">Download Options</h2>
+            <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">Download Options</h2>
              {creationToDownload.prompt && (
-              <p className="text-xs text-gray-500 mt-2 mb-4 bg-gray-100 p-2 rounded-md font-mono">
+              <p className="text-xs text-gray-500 dark:text-gray-400 mt-2 mb-4 bg-gray-100 dark:bg-gray-700 p-2 rounded-md font-mono">
                   <strong>Prompt:</strong> {creationToDownload.prompt}
               </p>
             )}
-            <p className="text-gray-600 mb-6">Choose which image(s) to download.</p>
+            <p className="text-gray-600 dark:text-gray-300 mb-6">Choose which image(s) to download.</p>
             <div className="flex flex-col gap-3">
               <button
                 onClick={() => handleDownload(creationToDownload.generatedImage, `tryify-generated-${creationToDownload.id}.png`)}
@@ -185,7 +185,7 @@ export const CreationsView: React.FC<CreationsViewProps> = ({ creations, onShare
               {creationToDownload.userImage && (
                 <button
                   onClick={() => handleDownload(creationToDownload.userImage, `tryify-original-${creationToDownload.id}.png`)}
-                  className="w-full px-6 py-2.5 rounded-full font-semibold text-gray-700 bg-gray-200 hover:bg-gray-300 transition-colors"
+                  className="w-full px-6 py-2.5 rounded-full font-semibold text-gray-700 bg-gray-200 hover:bg-gray-300 dark:text-gray-200 dark:bg-gray-600 dark:hover:bg-gray-500 transition-colors"
                 >
                   Download Your Photo
                 </button>
@@ -193,14 +193,14 @@ export const CreationsView: React.FC<CreationsViewProps> = ({ creations, onShare
               {creationToDownload.outfitImage && (
                 <button
                     onClick={() => handleDownload(creationToDownload.outfitImage!, `tryify-outfit-${creationToDownload.id}.png`)}
-                    className="w-full px-6 py-2.5 rounded-full font-semibold text-gray-700 bg-gray-200 hover:bg-gray-300 transition-colors"
+                    className="w-full px-6 py-2.5 rounded-full font-semibold text-gray-700 bg-gray-200 hover:bg-gray-300 dark:text-gray-200 dark:bg-gray-600 dark:hover:bg-gray-500 transition-colors"
                 >
                     Download Outfit Photo
                 </button>
               )}
               <button
                 onClick={() => setCreationToDownload(null)}
-                className="w-full mt-2 py-2 rounded-full font-semibold text-gray-500 hover:text-gray-700 transition-colors"
+                className="w-full mt-2 py-2 rounded-full font-semibold text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition-colors"
               >
                 Cancel
               </button>
@@ -216,15 +216,15 @@ export const CreationsView: React.FC<CreationsViewProps> = ({ creations, onShare
           onClick={() => setIsConfirmingClear(false)}
         >
           <div 
-            className="bg-white rounded-lg shadow-xl p-6 w-full max-w-sm m-4 text-center transform animate-scale-in"
+            className="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6 w-full max-w-sm m-4 text-center transform animate-scale-in"
             onClick={(e) => e.stopPropagation()}
           >
-            <h2 className="text-xl font-bold text-gray-900">Clear All Creations?</h2>
-            <p className="text-gray-600 mt-2 mb-6">This will permanently delete all your creations {isLoggedIn ? 'from your Google Drive' : 'from this device'}. This action cannot be undone.</p>
+            <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">Clear All Creations?</h2>
+            <p className="text-gray-600 dark:text-gray-300 mt-2 mb-6">This will permanently delete all your creations {isLoggedIn ? 'from your Google Drive' : 'from this device'}. This action cannot be undone.</p>
             <div className="flex justify-center gap-4">
               <button
                 onClick={() => setIsConfirmingClear(false)}
-                className="px-6 py-2 rounded-full font-semibold text-gray-700 bg-gray-200 hover:bg-gray-300 transition-colors"
+                className="px-6 py-2 rounded-full font-semibold text-gray-700 bg-gray-200 hover:bg-gray-300 dark:text-gray-200 dark:bg-gray-600 dark:hover:bg-gray-500 transition-colors"
               >
                 Cancel
               </button>

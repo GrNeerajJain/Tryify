@@ -156,6 +156,7 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({ value, onChange, l
                 <UploadIcon />
                 <span className="mt-2 font-semibold block">{label}</span>
                 <span className="text-xs">Click to upload</span>
+                <span className="text-xs text-gray-400 dark:text-gray-500 mt-1 block">PNG, JPG, WEBP up to 5MB</span>
             </div>
              <div className="flex items-center space-x-2 my-2">
                 <hr className="w-12 border-gray-300 dark:border-gray-600" />
