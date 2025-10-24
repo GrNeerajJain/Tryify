@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { Header } from './components/Header';
 import { ImageUploader } from './components/ImageUploader';
@@ -13,7 +14,8 @@ import { generateOutfit } from './services/geminiService';
 import * as googleService from './services/googleService';
 import { AspectRatio, View, Creation, UserInfo, Theme, Preset } from './types';
 import { Spinner } from './components/Spinner';
-import { ImageIcon, PencilIcon, SettingsIcon, BookmarkIcon, XIcon, ChatBotIcon, UserIcon } from './components/icons';
+import { ImageIcon, PencilIcon, SettingsIcon, BookmarkIcon, XIcon, ChatBotIcon, UserIcon, CameraIcon } from './components/icons';
+import { BackgroundSelector } from './components/BackgroundSelector';
 
 const App: React.FC = () => {
   // Form State
@@ -25,6 +27,8 @@ const App: React.FC = () => {
   const [fineDetails, setFineDetails] = useState<string>('');
   const [isAdvancedOpen, setIsAdvancedOpen] = useState(false);
   const [outfitInputMode, setOutfitInputMode] = useState<'upload' | 'describe'>('upload');
+  const [backgroundPreset, setBackgroundPreset] = useState<string>('Original');
+  const [customBackground, setCustomBackground] = useState<string>('');
 
   // App State
   const [isLoading, setIsLoading] = useState(false);
@@ -194,7 +198,16 @@ const App: React.FC = () => {
     reader.onloadend = async () => {
         originalUserImageRef.current = reader.result as string;
         try {
-            const resultImageUrl = await generateOutfit(userImage, outfitImage, outfitDescription, aspectRatio, negativePrompt, fineDetails);
+            const resultImageUrl = await generateOutfit(
+                userImage,
+                outfitImage,
+                outfitDescription,
+                aspectRatio,
+                negativePrompt,
+                fineDetails,
+                backgroundPreset,
+                customBackground
+            );
             setGeneratedImage(resultImageUrl);
 
             const newCreation: Creation = {
@@ -421,7 +434,17 @@ const App: React.FC = () => {
           </div>
 
           <div>
-             <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-2">3. Select Aspect Ratio</h3>
+            <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-2">3. Choose Background</h3>
+            <BackgroundSelector
+              preset={backgroundPreset}
+              onPresetChange={setBackgroundPreset}
+              customDescription={customBackground}
+              onCustomDescriptionChange={setCustomBackground}
+            />
+          </div>
+
+          <div>
+             <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-2">4. Select Aspect Ratio</h3>
              <AspectRatioSelector selected={aspectRatio} onSelect={setAspectRatio} />
           </div>
 

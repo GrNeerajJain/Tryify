@@ -182,10 +182,10 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({ value, onChange, l
           <div className="absolute bottom-0 left-0 right-0 p-6 flex justify-center items-center">
              <button 
                 onClick={handleCapture} 
-                className="w-16 h-16 rounded-full bg-white flex items-center justify-center ring-4 ring-white/30 hover:ring-white/50 transition-transform active:scale-95"
+                className="w-16 h-16 rounded-full bg-white dark:bg-gray-200 flex items-center justify-center ring-4 ring-white/30 dark:ring-gray-200/30 hover:ring-white/50 dark:hover:ring-gray-200/50 transition-transform active:scale-95"
                 aria-label="Capture photo"
              >
-                <div className="w-14 h-14 rounded-full bg-white border-2 border-gray-800"></div>
+                <div className="w-14 h-14 rounded-full bg-white dark:bg-gray-200 border-2 border-gray-800 dark:border-gray-900"></div>
              </button>
           </div>
           

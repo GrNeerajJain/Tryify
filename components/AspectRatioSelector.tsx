@@ -64,8 +64,8 @@ export const AspectRatioSelector: React.FC<AspectRatioSelectorProps> = ({ select
           isSelected
             ? 'bg-indigo-600 text-white'
             : ratioInfo.locked
-            ? 'text-gray-400 cursor-not-allowed'
-            : 'text-gray-700 hover:bg-gray-100'
+            ? 'text-gray-400 dark:text-gray-500 cursor-not-allowed'
+            : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700/50'
         }`}
       >
         <span>{ratioInfo.label || ratioInfo.ratio}</span>
@@ -78,9 +78,9 @@ export const AspectRatioSelector: React.FC<AspectRatioSelectorProps> = ({ select
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
       {/* Left Side: Preview & Slider */}
       <div className="flex flex-col space-y-4">
-        <div className="w-full max-w-[200px] mx-auto border-2 border-gray-300 rounded-md p-1">
-           <div className="relative w-full bg-gray-200 rounded-sm" style={{ paddingBottom: `${paddingBottom}%` }}>
-             <span className="absolute inset-0 flex items-center justify-center text-lg font-mono text-gray-500">{selected}</span>
+        <div className="w-full max-w-[200px] mx-auto border-2 border-gray-300 dark:border-gray-600 rounded-md p-1">
+           <div className="relative w-full bg-gray-200 dark:bg-gray-700 rounded-sm" style={{ paddingBottom: `${paddingBottom}%` }}>
+             <span className="absolute inset-0 flex items-center justify-center text-lg font-mono text-gray-500 dark:text-gray-400">{selected}</span>
            </div>
         </div>
         <input 
@@ -90,18 +90,18 @@ export const AspectRatioSelector: React.FC<AspectRatioSelectorProps> = ({ select
             step="1"
             value={selectedIndex}
             onChange={handleSliderChange}
-            className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+            className="w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer"
         />
-        <div className="flex justify-between text-sm text-gray-500 font-mono">
-            <div><span className="font-sans text-gray-400">Width</span> {displayWidth} px</div>
-            <div><span className="font-sans text-gray-400">Height</span> {displayHeight} px</div>
+        <div className="flex justify-between text-sm text-gray-500 dark:text-gray-400 font-mono">
+            <div><span className="font-sans text-gray-400 dark:text-gray-500">Width</span> {displayWidth} px</div>
+            <div><span className="font-sans text-gray-400 dark:text-gray-500">Height</span> {displayHeight} px</div>
         </div>
       </div>
 
       {/* Right Side: Presets */}
       <div className="grid grid-cols-2 gap-x-6 gap-y-4">
         <div>
-          <h3 className="flex items-center space-x-2 text-gray-500 font-semibold text-sm mb-2">
+          <h3 className="flex items-center space-x-2 text-gray-500 dark:text-gray-400 font-semibold text-sm mb-2">
             <PortraitIcon />
             <span>Portrait</span>
           </h3>
@@ -110,7 +110,7 @@ export const AspectRatioSelector: React.FC<AspectRatioSelectorProps> = ({ select
           </div>
         </div>
         <div>
-           <h3 className="flex items-center space-x-2 text-gray-500 font-semibold text-sm mb-2">
+           <h3 className="flex items-center space-x-2 text-gray-500 dark:text-gray-400 font-semibold text-sm mb-2">
             <LandscapeIcon />
             <span>Landscape</span>
           </h3>

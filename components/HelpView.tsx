@@ -28,14 +28,15 @@ export const HelpView: React.FC = () => {
       <h1 className="text-4xl font-black text-center text-gray-800 dark:text-gray-100 mb-8">How to Use Tryify</h1>
 
       <div className="space-y-8">
-        <GuideSection title="How It Works: 3 Easy Steps" icon={<UploadIcon className="h-6 w-6"/>}>
+        <GuideSection title="How It Works: 4 Easy Steps" icon={<UploadIcon className="h-6 w-6"/>}>
           <p><strong>1. Upload Your Photo:</strong> Start by uploading a clear, well-lit photo of a person. For best results, use a high-quality image where the person's body and pose are clearly visible.</p>
           <p><strong>2. Provide an Outfit:</strong> You have two options:</p>
           <ul className="list-disc list-inside pl-4 space-y-1">
               <li><strong>Upload an Outfit Image:</strong> Provide a reference photo of an outfit. The AI will try to match its style, color, and texture.</li>
               <li><strong>Describe the Outfit:</strong> Use the text box to describe the outfit you want to see. Be as specific as you like! For example, "a red silk evening gown" or "a casual denim jacket with a white t-shirt".</li>
           </ul>
-           <p><strong>3. Generate:</strong> Adjust the aspect ratio if needed, then hit the "Generate Outfit" button. The AI will get to work, and your new image will appear in the result panel.</p>
+          <p><strong>3. Choose a Background:</strong> Place your subject in a new environment! You can choose from presets like 'City Street' or 'Studio Backdrop', or describe a custom background for the AI to create.</p>
+          <p><strong>4. Generate:</strong> Adjust the aspect ratio if needed, then hit the "Generate Outfit" button. The AI will get to work, and your new image will appear in the result panel.</p>
         </GuideSection>
 
         <GuideSection title="Tips for Best Results" icon={<SettingsIcon className="h-6 w-6"/>}>

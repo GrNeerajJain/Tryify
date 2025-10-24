@@ -31,19 +31,27 @@ export const generateOutfit = async (
   outfitDescription: string,
   aspectRatio: AspectRatio,
   negativePrompt: string,
-  fineDetails: string
+  fineDetails: string,
+  backgroundPreset: string,
+  customBackground: string,
 ): Promise<string> => {
   
-  let prompt = `As Tryify, an AI outfit visualization model, your task is to realistically apply a new outfit to the human subject in the provided image while maintaining their original face, hair, body shape, and background lighting.
+  let prompt = `As Tryify, an AI outfit visualization model, your task is to realistically apply a new outfit to the human subject in the provided image while maintaining their original face, hair, and body shape.
 
 **Instructions:**
 1.  **Preserve Identity:** The person’s identity, face, and hairstyle must be preserved exactly as in the original image. Do not alter facial features.
 2.  **Realistic Outfit Application:** The new outfit should be applied realistically, aligning perfectly with the person's body and pose. Pay close attention to fabric drape, shadows, and fit.
-3.  **Maintain Scene Integrity:** The background, lighting, and shadows of the original image must be maintained to ensure a natural look.
-4.  **High-Resolution Output:** Generate a single, high-resolution, photorealistic image.
-5.  **Framing and Composition:** Adjust the framing and composition to best fit the target aspect ratio of ${aspectRatio}, without cropping the subject unnaturally.
-6.  **Avoid Artifacts:** Ensure the final image is clean, without any visual artifacts, blurring, or distortions, especially on the face and hands.
+3.  **High-Resolution Output:** Generate a single, high-resolution, photorealistic image.
+4.  **Framing and Composition:** Adjust the framing and composition to best fit the target aspect ratio of ${aspectRatio}, without cropping the subject unnaturally.
+5.  **Avoid Artifacts:** Ensure the final image is clean, without any visual artifacts, blurring, or distortions, especially on the face and hands.
 `;
+
+  if (backgroundPreset === 'Original') {
+    prompt += `\n6.  **Maintain Scene Integrity:** The background, lighting, and shadows of the original image must be maintained to ensure a natural look.`;
+  } else {
+    prompt += `\n6.  **Background Replacement:** The original background must be COMPLETELY REPLACED. The new background should be photorealistic and integrate seamlessly with the subject's lighting.`;
+  }
+
 
   if (outfitImage && outfitDescription) {
     prompt += `\n\n**Outfit Source:** The primary reference is the attached outfit image. Replicate its style, color, and texture. Use the following description to add or modify details: "${outfitDescription}".`;
@@ -51,6 +59,14 @@ export const generateOutfit = async (
     prompt += `\n\n**Outfit Source:** Replicate the style, color, and texture from the attached outfit reference image.`;
   } else if (outfitDescription) {
     prompt += `\n\n**Outfit Source:** Generate a new outfit based *only* on the following text description: "${outfitDescription}".`;
+  }
+
+  if (backgroundPreset !== 'Original') {
+    if (backgroundPreset === 'Custom' && customBackground) {
+        prompt += `\n\n**New Background:** Generate a new background based on this description: "${customBackground}".`;
+    } else {
+        prompt += `\n\n**New Background:** Generate a "${backgroundPreset}" background.`;
+    }
   }
   
   if (fineDetails) {

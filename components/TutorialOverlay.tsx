@@ -57,15 +57,15 @@ export const TutorialOverlay: React.FC<TutorialOverlayProps> = ({ onDismiss }) =
       aria-modal="true"
     >
       <div 
-        className="bg-white rounded-xl shadow-2xl w-full max-w-md m-4 text-center transform animate-scale-in p-6 sm:p-8"
+        className="bg-white dark:bg-gray-800 rounded-xl shadow-2xl w-full max-w-md m-4 text-center transform animate-scale-in p-6 sm:p-8"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex flex-col items-center">
-          <div className="mb-4 bg-indigo-100 rounded-full p-3">
+          <div className="mb-4 bg-indigo-100 dark:bg-indigo-900/50 rounded-full p-3">
             {currentStepData.icon}
           </div>
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">{currentStepData.title}</h2>
-          <p className="text-gray-600 mb-6">{currentStepData.content}</p>
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">{currentStepData.title}</h2>
+          <p className="text-gray-600 dark:text-gray-300 mb-6">{currentStepData.content}</p>
         </div>
 
         {/* Navigation and Progress */}
@@ -73,7 +73,7 @@ export const TutorialOverlay: React.FC<TutorialOverlayProps> = ({ onDismiss }) =
           <button
             onClick={handlePrev}
             disabled={currentStep === 0}
-            className="p-2 rounded-full text-gray-500 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            className="p-2 rounded-full text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
             aria-label="Previous step"
           >
             <ArrowLeftIcon className="h-5 w-5" />
@@ -83,14 +83,14 @@ export const TutorialOverlay: React.FC<TutorialOverlayProps> = ({ onDismiss }) =
             {tutorialSteps.map((_, index) => (
               <div 
                 key={index}
-                className={`w-2 h-2 rounded-full transition-colors ${index === currentStep ? 'bg-indigo-600' : 'bg-gray-300'}`}
+                className={`w-2 h-2 rounded-full transition-colors ${index === currentStep ? 'bg-indigo-600' : 'bg-gray-300 dark:bg-gray-600'}`}
               ></div>
             ))}
           </div>
 
           <button
             onClick={handleNext}
-            className="p-2 rounded-full text-gray-500 hover:bg-gray-100 transition-colors"
+            className="p-2 rounded-full text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
             aria-label="Next step"
           >
             <ArrowRightIcon className="h-5 w-5" />

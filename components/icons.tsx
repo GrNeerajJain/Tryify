@@ -193,6 +193,27 @@ export const SendIcon: React.FC<{ className?: string }> = ({ className }) => (
     </Icon>
 );
 
+export const BuildingStorefrontIcon: React.FC<{ className?: string }> = ({ className }) => (
+    <Icon className={className}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 21V3m0 0l-3.08 3.08M12 3l3.08 3.08M12 21a2 2 0 01-2-2h4a2 2 0 01-2 2zM4 11h16M4 11a2 2 0 01-2-2V7a2 2 0 012-2h16a2 2 0 012 2v2a2 2 0 01-2 2M4 11v10M20 11v10" />
+    </Icon>
+);
+
+export const TreeIcon: React.FC<{ className?: string }> = ({ className }) => (
+    <Icon className={className}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 12v9" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 21a4 4 0 100-8 4 4 0 000 8z" />
+    </Icon>
+);
+
+export const SparklesIcon: React.FC<{ className?: string }> = ({ className }) => (
+    <Icon className={className}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M5 3v4M3 5h4M19 3v4M17 5h4M12 11a1 1 0 100-2 1 1 0 000 2zM12 19a1 1 0 100-2 1 1 0 000 2zM5 19v-4M3 17h4M19 19v-4M17 17h4" />
+    </Icon>
+);
+
+
 // SVGs for custom avatars
 export const AvatarIcon1: React.FC<{ className?: string }> = ({ className }) => (
     <svg className={className} viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
